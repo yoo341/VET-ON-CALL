@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>VET-ON-CALL – Veterinary Nursing at Your Door</title>
+<style>
+:root{--bg:#f4f9f7;--card:#fff;--tx:#14282a;--mu:#587073;--pr:#0b8a7a;--ac:#ffb703;--rd:#d62839;--bd:#dbe7e4}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1b1c;--card:#172628;--tx:#e8f3f1;--mu:#9bb5b2;--pr:#2ec4b0;--bd:#26393b}}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px);background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5}
+header{background:linear-gradient(135deg,#0b8a7a,#065a63);color:#fff;padding:22px 16px;text-align:center}
+header h1{margin:0;font-size:1.8rem;letter-spacing:1px}header p{margin:4px 0 0;opacity:.92;font-size:.92rem}
+nav{display:flex;gap:6px;padding:10px;max-width:820px;margin:auto;position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);z-index:2}
+nav button{flex:1;padding:10px 4px;border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:10px;font-weight:600;cursor:pointer;font-size:.85rem}
+nav button.on{background:var(--pr);color:#fff;border-color:var(--pr)}nav button.u.on{background:var(--rd);border-color:var(--rd)}
+main{max-width:820px;margin:auto;padding:0 12px 40px}section{display:none}section.on{display:block}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
+.card,form,details{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:14px}
+.card .em{font-size:2rem}.card h3{margin:4px 0}.card p{margin:0;color:var(--mu);font-size:.88rem}
+form{display:grid;gap:10px}label{font-size:.85rem;color:var(--mu);display:grid;gap:4px}
+input,select,textarea{padding:10px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx);font:inherit;width:100%}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.b{display:block;text-align:center;text-decoration:none;background:var(--pr);color:#fff;border:0;border-radius:10px;padding:12px;font-weight:700;cursor:pointer;font-size:1rem}
+.b.w{background:#25d366;color:#053}.b.r{background:var(--rd)}
+details{margin:8px 0;padding:10px 14px}summary{cursor:pointer;font-weight:600}details p,details ul{color:var(--mu);margin:8px 0 0;font-size:.92rem}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}.chips button{padding:6px 12px;border-radius:20px;border:1px solid var(--bd);background:var(--card);color:var(--tx);cursor:pointer}
+.chips button.on{background:var(--ac);border-color:var(--ac);color:#111}
+.alert{background:#ffe3e6;color:#7a0b18;border:1px solid var(--rd);border-radius:12px;padding:12px;margin:8px 0}
+@media (prefers-color-scheme:dark){.alert{background:#3a1519;color:#ffd5da}}
+.out{display:none;border:2px solid #25d366;border-radius:12px;padding:14px;margin-top:10px;background:var(--card)}
+.note{font-size:.78rem;color:var(--mu)}h2{margin:12px 0 6px}
+footer{text-align:center;padding:16px;font-size:.78rem;color:var(--mu)}
+</style></head><body>
+<header><h1>🐾 VET-ON-CALL</h1><p id="tag"></p></header>
+<nav><button class="on" data-t="home">Home</button><button data-t="book">Book</button><button data-t="learn">Learn</button><button class="u" data-t="urgent">🚨 Urgent</button></nav>
+<main>
+<section id="home" class="on">
+<h2>Care that comes to you</h2><p>Professional veterinary nursing for your pets and animals, at your home, hostel or farm. Serving UCC and nearby areas around SSNIT, Cape Coast.</p>
+<a class="b" href="#" onclick="go('book');return false">📅 Book a visit</a>
+<h2>Our services</h2><p class="note">Nursing care only. Diagnosis, prescriptions and surgery are referred to a veterinarian.</p><div class="grid" id="svc"></div>
+<h2>How it works</h2>
+<div class="card"><p>1️⃣ Fill the booking form &nbsp; 2️⃣ Your request opens in WhatsApp and is sent to the nurse &nbsp; 3️⃣ You get a confirmation of time and price &nbsp; 4️⃣ We visit and give you care advice.</p></div>
+<h2>My requests on this phone</h2><div id="mine" class="note">No requests yet.</div>
+</section>
+
+<section id="book"><h2>Book a visit</h2>
+<form id="bf">
+<div class="row"><label>Your name<input id="f_o" required></label><label>Your phone / WhatsApp<input id="f_p" type="tel" placeholder="024xxxxxxx" required></label></div>
+<div class="row"><label>Animal<select id="f_sp"><option>Dog</option><option>Cat</option><option>Goat/Sheep</option><option>Pig</option><option>Cattle</option><option>Poultry</option><option>Rabbit</option><option>Other</option></select></label><label>Name / number of animals<input id="f_n" required></label></div>
+<div class="row"><label>Age<input id="f_a" placeholder="e.g. 8 months"></label><label>Service<select id="f_s"></select></label></div>
+<div class="row"><label>Preferred date<input id="f_d" type="date" required></label><label>Time<select id="f_t"><option>Morning (8am–12pm)</option><option>Afternoon (12–4pm)</option><option>Evening (4–7pm)</option></select></label></div>
+<label>Your home address / landmark<input id="f_l" placeholder="House or hostel name, street, nearby landmark" required></label>
+<label>Your exact location (required, so the nurse can find you)
+<button type="button" class="b" id="gpsb" style="background:var(--ac);color:#111">📍 Share my location</button>
+<input id="f_g" readonly placeholder="No location shared yet"></label>
+<label>What is happening? (symptoms, history)<textarea id="f_x" rows="3"></textarea></label>
+<label style="display:flex;gap:8px;align-items:center"><input id="f_u" type="checkbox" style="width:auto"> This is urgent</label>
+<button class="b" type="submit">Send booking via WhatsApp</button>
+<div class="note">No payment is taken here. The nurse visits you at your location and will confirm the time and price on WhatsApp.</div>
+</form><div class="out" id="out"></div></section>
+
+<section id="learn"><h2>Client education</h2>
+<input id="q" placeholder="Search e.g. vaccine, tick, poison…">
+<div class="chips" id="chips"></div><div id="lib"></div>
+<p class="note">General guidance only. It does not replace an examination. When unsure, call the nurse.</p></section>
+
+<section id="urgent"><h2>🚨 Emergency</h2>
+<div class="alert"><b>Go to a vet clinic or call now if your animal has:</b><ul>
+<li>Trouble breathing, blue/pale gums, or collapse</li><li>Seizures or sudden weakness</li><li>Suspected poisoning</li><li>Heavy bleeding, deep wounds or broken bones</li><li>Swollen, hard belly with retching (bloat)</li><li>Straining but unable to pass urine</li><li>Heatstroke, or labour lasting too long</li></ul></div>
+<a class="b r" id="callbtn" href="#">📞 Call now</a><br><a class="b w" id="wabtn" target="_blank" rel="noopener" href="#">💬 WhatsApp the nurse</a>
+<h2>First aid while you get help</h2><div id="aid"></div></section>
+</main>
+<footer id="foot"></footer>
+
+<script>
+// ===== CONFIG: edit these =====
+const NURSE={name:"Your Name",title:"Registered Veterinary Nurse",wa:"233547636057",area:"UCC & surroundings (around SSNIT), Cape Coast",reg:"Reg. No. —",vet:"Supervising veterinarian: Dr. ________"};
+const SERVICES=[
+["🏠","Nursing check & observation","Temperature, pulse, weight, hydration and condition checks, with advice on when to see the vet.",""],
+["💉","Vaccination (vet-directed)","Vaccines given under your supervising veterinarian's protocol, with a record for your pet.",""],
+["🪱","Deworming & tick/flea control","Giving vet-approved preventives with correct dosing guidance.",""],
+["🩹","Wound cleaning & dressing","Cleaning, dressing and bandage changes for minor wounds.",""],
+["💊","Giving prescribed medication","Administering treatment already prescribed by a veterinarian.",""],
+["🏥","Post-surgery nursing care","Suture checks, dressing changes and recovery care after a vet procedure.",""],
+["🐐","Farm husbandry & biosecurity advice","Hygiene, housing, feeding and vaccination schedules for small farms.",""],
+["📚","Owner education & coaching","Teaching feeding, grooming, handling, first aid and prevention.",""]];
+const TAGS=["all","dog","cat","farm","general"];
+const LIB=[
+["dog","Puppy vaccines & deworming","Puppies usually start vaccines at 6–8 weeks, with boosters every 3–4 weeks until about 16 weeks, then yearly. Rabies vaccine is essential. Deworm puppies every 2 weeks until 12 weeks, then monthly to 6 months, then about every 3 months. Your nurse sets the exact plan."],
+["cat","Kitten care basics","Keep kittens warm and indoors until vaccinated. Feed kitten food, provide a clean litter tray and fresh water, deworm on schedule, and book vaccines from about 8 weeks."],
+["dog","Fleas & ticks","Scratching, small dark specks in the coat or visible ticks mean parasites. Use vet-approved preventives, wash bedding on hot water, and treat all pets in the home together. Ticks can spread serious blood diseases."],
+["general","Foods that are dangerous","Never give dogs chocolate, onions, garlic, grapes/raisins, cooked bones or xylitol (sweeteners). Cats must avoid lilies, onions and garlic. If eaten, call the nurse at once."],
+["general","Rabies: bites & scratches","Wash any bite or scratch with soap and running water for at least 15 minutes, then go to a hospital quickly. Keep the animal confined if safe to do so, and vaccinate pets every year."],
+["dog","Signs of a healthy dog","Bright eyes, moist nose, good appetite, normal stool, pink gums and active behaviour. Call if there is vomiting, diarrhoea over 24 hours, limping, or sudden behaviour change."],
+["cat","When a cat is sick","Cats hide illness. Hiding, not eating for a day, drinking much more, or straining in the litter tray need a check. A male cat unable to pass urine is an emergency."],
+["general","Hot weather care","Give shade and fresh water always. Walk early morning or evening. Never leave animals in a car or closed room. Panting heavily, drooling or weakness can be heatstroke."],
+["farm","Poultry health","Vaccinate against Newcastle disease on schedule, keep clean water and dry litter, and isolate sick birds. Report sudden deaths in many birds immediately."],
+["farm","Goats & sheep","Deworm on a vet plan, give clean water and minerals, keep pens dry, trim hooves, and watch for diarrhoea, coughing or reduced eating."],
+["general","Giving tablets & hygiene","Hide tablets in a small treat unless the label says give with food only. Finish the full course. Wash hands after handling pets, and keep animals away from food areas."]];
+const AID=[
+["Heatstroke","Move to shade, wet the body with cool (not ice-cold) water, offer small sips, then get veterinary help straight away."],
+["Bleeding wound","Press a clean cloth firmly on the wound for 5–10 minutes without lifting. Do not use tourniquets. Keep calm and go to the clinic."],
+["Poisoning","Remove the animal from the source, note what and how much was eaten, keep the packaging, and call. Do not force vomiting unless a vet tells you to."],
+["Road accident","Move as little as possible, slide the animal onto a flat board or blanket, keep warm, and muzzle gently if it may bite."],
+["Choking","Open the mouth and look for an object. Only remove it if clearly visible and easy to reach. Otherwise go to the clinic at once."]];
+// ==============================
+const $=id=>document.getElementById(id),norm=p=>{p=p.replace(/\D/g,"");return p[0]=="0"?"233"+p.slice(1):p};
+$("tag").textContent=NURSE.title+" · Home visits & pet care";
+$("foot").innerHTML=`${NURSE.name}, ${NURSE.title} · ${NURSE.reg} · ${NURSE.area}<br>${NURSE.vet}<br>Veterinary nursing care only. We do not diagnose, prescribe or perform surgery; such cases are referred to a veterinarian.`;
+$("svc").innerHTML=SERVICES.map(s=>`<div class="card"><div class="em">${s[0]}</div><h3>${s[1]}</h3><p>${s[2]}</p>${s[3]?`<p><b>${s[3]}</b></p>`:""}</div>`).join("");
+$("f_s").innerHTML=SERVICES.map(s=>`<option>${s[1]}</option>`).join("")+"<option>Nursing advice only</option>";
+$("callbtn").href="tel:+"+NURSE.wa;$("wabtn").href="https://wa.me/"+NURSE.wa+"?text="+encodeURIComponent("🚨 URGENT: I need help with my animal.");
+$("aid").innerHTML=AID.map(a=>`<details><summary>${a[0]}</summary><p>${a[1]}</p></details>`).join("");
+$("f_d").min=new Date().toISOString().slice(0,10);
+function go(t){document.querySelectorAll("nav button,section").forEach(x=>x.classList.remove("on"));document.querySelector(`nav [data-t=${t}]`).classList.add("on");$(t).classList.add("on");scrollTo(0,0)}
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>go(b.dataset.t));
+let tag="all";
+$("chips").innerHTML=TAGS.map(t=>`<button data-g="${t}" class="${t=="all"?"on":""}">${t}</button>`).join("");
+$("chips").onclick=e=>{if(!e.target.dataset.g)return;tag=e.target.dataset.g;[...$("chips").children].forEach(c=>c.classList.toggle("on",c==e.target));lib()};
+$("q").oninput=lib;
+function lib(){const q=$("q").value.toLowerCase();const r=LIB.filter(x=>(tag=="all"||x[0]==tag||x[0]=="general"&&tag=="all")&&(x[1]+x[2]).toLowerCase().includes(q));
+ $("lib").innerHTML=r.length?r.map(x=>`<details><summary>${x[1]}</summary><p>${x[2]}</p></details>`).join(""):"<p class='note'>Nothing found. Try another word or book a visit.</p>"}
+lib();
+function mine(){let l=[];try{l=JSON.parse(localStorage.getItem("voc")||"[]")}catch(e){}
+ $("mine").innerHTML=l.length?l.map(x=>`<div class="card" style="margin:6px 0"><b>${x.s}</b> – ${x.sp} (${x.n})<br><small>${x.d}, ${x.t}</small></div>`).join(""):"No requests yet."}
+mine();
+$("gpsb").onclick=()=>{const g=$("f_g");g.value="Getting location…";
+ if(!navigator.geolocation){g.value="";alert("Your browser cannot share location. Please try another browser.");return}
+ navigator.geolocation.getCurrentPosition(p=>{g.value="https://www.google.com/maps?q="+p.coords.latitude.toFixed(6)+","+p.coords.longitude.toFixed(6)},()=>{g.value="";alert("Could not get your location. Turn on location/GPS and allow it for this site, then try again.")},{enableHighAccuracy:true,timeout:15000})};
+$("bf").onsubmit=e=>{e.preventDefault();
+ if(!$("f_g").value.startsWith("http")){alert("Please tap 'Share my location' first. We need it to find you.");return}
+ const v=id=>$(id).value,u=$("f_u").checked;
+ const t=`🐾 VET-ON-CALL BOOKING ${u?"(URGENT)":""}\nOwner: ${v("f_o")}\nPhone: ${norm(v("f_p"))}\nAnimal: ${v("f_sp")} – ${v("f_n")} (${v("f_a")||"age n/a"})\nService: ${v("f_s")}\nPreferred: ${v("f_d")}, ${v("f_t")}\nAddress: ${v("f_l")}\nMap pin: ${v("f_g")}\nDetails: ${v("f_x")||"-"}`;
+ const link="https://wa.me/"+NURSE.wa+"?text="+encodeURIComponent(t);
+ try{const l=JSON.parse(localStorage.getItem("voc")||"[]");l.unshift({s:v("f_s"),sp:v("f_sp"),n:v("f_n"),d:v("f_d"),t:v("f_t")});localStorage.setItem("voc",JSON.stringify(l.slice(0,10)))}catch(x){}
+ mine();$("out").innerHTML=`<b>Almost done!</b> Tap to send your request to ${NURSE.name} on WhatsApp:<br><br><a class="b w" target="_blank" rel="noopener" href="${link}">Send on WhatsApp</a>`;
+ $("out").style.display="block";window.open(link,"_blank");$("out").scrollIntoView({behavior:"smooth"});
+};
+</script></body></html>
